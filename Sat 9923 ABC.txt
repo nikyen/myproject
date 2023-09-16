@@ -1,0 +1,72 @@
+#Resume + Linked + Nokari 
+
+HR --> Interview 2 tech + 1 HR --> tech 2-5 --> Intro , Project flow --> 99% project flow 
+
+domain : 
+Fin/Banking
+Telecom 
+Automobile
+share market
+pharma
+...
+ecom
+
+=========================================
+Team : 
+
+5-25
+
+7 
+Mgr
+TL
+2 SDE
+3 ME 
+1 Fresher 
+
+================================
+Project Duration : 
+1-3
+
+1-1.5 development  6 month 
+
+================================
+
+patient table left join claims on pid.patient=pid.claims
+filter only this data for US
+
+
+df_p
+df_C 
+
+
+temp view patient
+temp view claims 
+
+res=spark.sql("""
+select
+patient.id as patientId,
+patient.name as patientname,
+conact(patient.street,'-',patient.city,'-',patient.pincode) as address,
+claims.amt as claimsamt,
+claims.status as claimsstatus
+from patient left join claims on pid.patient=pid.claims
+where upper(patient.country)='US'
+
+
+""")
+
+res.write.saveAsTable('')
+
+
+#Interview questions 
+Daily total data handle
+who were giving requirement in project 
+===========================
+
+GA 
+
+GB
+
+GC 
+
+Airflow 

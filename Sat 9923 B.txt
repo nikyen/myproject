@@ -1,0 +1,73 @@
+Project explaing 
+
+E2E --> 
+
+
+Telecom Domain 
+
+Telecom :
+
+customer 
+Subscriber 
+
+Analysis : 
+Goal , KPI 
+
+1. revenue analysis 
+2. Active plan
+3. 
+
+
+sid  preP     post_p
+1    100       null
+2    null        200
+3    null      null
+4    300       null
+
+
+revenue 
+IN 600
+US 200
+UK 100
+
+
+2000              2023
+                    |
+					9th sept
+
+database-1groupb.cjxbe2wg8jte.ap-south-1.rds.amazonaws.com
+5432
+GROUPB
+puser
+ppassword
+
+jdbc:postgresql://database-1groupb.cjxbe2wg8jte.ap-south-1.rds.amazonaws.com:5432/GROUPB
+
+select count(*) from COUNTRY
+union all select count(*) from CITY
+union all select count(*) from ADDRESS
+union all select count(*) from STAFF
+union all select count(*) from PLAN_POSTPAID
+union all select count(*) from PLAN_PREPAID
+union all select count(*) from COMPLAINT
+union all select count(*) from SUBSCRIBER;
+
+=======================================
+
+RDBMS jar spark jar Hbase 
+
+hbase tables should have created already 
+
+8
+
+4 transactional
+4 Ref
+
+
+spark-submit --jars /home/hadoop/dep/postgresql-42.2.14.jar,/home/hadoop/dep/phoenix-4.14.3-HBase-1.4-client.jar,/home/hadoop/dep/phoenix-spark-4.14.3-HBase-1.4.jar --master yarn --deploy-mode client --driver-memory 3g --executor-memory 2g --num-executors 1 --executor-cores 1 /home/hadoop/ref_load.py
+
+spark-submit --jars /home/hadoop/dep/phoenix-4.14.3-HBase-1.4-client.jar,/home/hadoop/dep/phoenix-spark-4.14.3-HBase-1.4.jar --master yarn --deploy-mode client --driver-memory 3g --executor-memory 2g --num-executors 1 --executor-cores 1 /home/hadoop/sub_details.py
+
+spark-submit --jars /home/hadoop/dep/phoenix-4.14.3-HBase-1.4-client.jar,/home/hadoop/dep/phoenix-spark-4.14.3-HBase-1.4.jar --master yarn --deploy-mode client --driver-memory 3g --executor-memory 2g --num-executors 1 --executor-cores 1 /home/hadoop/cmp_details.py
+
+

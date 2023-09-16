@@ -1,0 +1,139 @@
+Sun Group B 
+-------------------
+
+puser
+ppassword
+GROUPB
+
+database-1groupbc.cjxbe2wg8jte.ap-south-1.rds.amazonaws.com
+
+5432
+
+jdbc:postgresql://database-1groupbc.cjxbe2wg8jte.ap-south-1.rds.amazonaws.com:5432/GROUPB
+
+/usr/bin/spark-submit  --jars /home/hadoop/dep/postgresql-42.2.14.jar,/home/hadoop/dep/phoenix-4.14.3-HBase-1.4-client.jar,/home/hadoop/dep/phoenix-spark-4.14.3-HBase-1.4.jar --master yarn --deploy-mode client --driver-memory 3g --executor-memory 2g --num-executors 1 --executor-cores 1  /home/hadoop/ref_load.py
+
+/usr/bin/spark-submit  --jars /home/hadoop/dep/postgresql-42.2.14.jar,/home/hadoop/dep/phoenix-4.14.3-HBase-1.4-client.jar,/home/hadoop/dep/phoenix-spark-4.14.3-HBase-1.4.jar --master yarn --deploy-mode client --driver-memory 3g --executor-memory 2g --num-executors 1 --executor-cores 1  /home/hadoop/trans_load.py
+
+/usr/bin/spark-submit  --jars /home/hadoop/dep/postgresql-42.2.14.jar,/home/hadoop/dep/phoenix-4.14.3-HBase-1.4-client.jar,/home/hadoop/dep/phoenix-spark-4.14.3-HBase-1.4.jar --master yarn --deploy-mode client --driver-memory 3g --executor-memory 2g --num-executors 1 --executor-cores 1  /home/hadoop/sub_dtl.py
+
+/usr/bin/spark-submit  --jars /home/hadoop/dep/postgresql-42.2.14.jar,/home/hadoop/dep/phoenix-4.14.3-HBase-1.4-client.jar,/home/hadoop/dep/phoenix-spark-4.14.3-HBase-1.4.jar --master yarn --deploy-mode client --driver-memory 3g --executor-memory 2g --num-executors 1 --executor-cores 1  /home/hadoop/cm_dtl.py
+
+
+Hive_stg   hive_final
+
+/usr/bin/spark-submit --master yarn --deploy-mode client --driver-memory 3g --executor-memory 2g --num-executors 1 --executor-cores 1  /home/hadoop/dedup.py
+
+
+#report 
+
+SELECT 
+					SD.country as Country,
+					count(SD.subscriberId) as Total_Subscriber,
+					sum(coalesce(pre_amount,pos_amount,0)) as total_revenue
+					FROM prod.subscriber_details SD
+					group by SD.country,Active_flag having SD.Active_flag='A'
+
+
+sid cntry acflg preamt posamt
+1   IND    A    100    null
+2   IND    A    null   200
+4   USA    A    100    null 
+5   USA    A    null   500
+6   USA    A    null   null 
+
+
+country   total_active    total revenue 
+IND          2            300
+USA          3            600
+
+
+
+
+3   IND    I    null   400
+
+Hive --> S3 
+
+/usr/bin/spark-submit --master yarn --deploy-mode client --driver-memory 3g --executor-memory 2g --num-executors 1 --executor-cores 1  /home/hadoop/report.py
+
+=====================================
+Daily data - delta / transactional data 
+
+Src 
+Transactional 
+file
+
+
+Ref
+one time  
+
+
+/usr/bin/spark-submit --jars /home/hadoop/dep/phoenix-4.14.3-HBase-1.4-client.jar,/home/hadoop/dep/phoenix-spark-4.14.3-HBase-1.4.jar --master yarn --deploy-mode client --driver-memory 3g --executor-memory 2g --num-executors 1 --executor-cores 1  /home/hadoop/delta.py
+
+========================================================================
+#How we can debug failed job : 
+
+1.terminal CLI
+
+#.log
+application_1694317241679_0012
+
+yarn logs -applicationId  application_1694317241679_0012
+yarn logs -applicationId  application_1694317241679_0012 >> app.log
+
+yarn logs -applicationId  application_1694317241679_0012 | grep -i error
+
+2.status 
+yarn application -status application_1694317241679_0012
+
+
+#kill
+yarn application -kill application_1694317241679_0013
+
+#list 
+yarn application -list
+
+2. GUI 
+
+Applicatiopn manager : Yarn
+
+http://ec2-13-127-223-140.ap-south-1.compute.amazonaws.com:8088
+
+
+SparkHistoryServer : Spark 
+http://master-public-dns-name:18080
+
+==============================
+Hue : Tool 
+
+
+GUI ----> Hive 
+
+=================
+Validation 
+
+Failure 
+
+4-6 todays
+
+Scheduler 
+
+Agile Jira 
+
+--------------------------
+2 days 
+
+
+/usr/bin/spark-submit --jars /home/hadoop/dep/phoenix-4.14.3-HBase-1.4-client.jar,/home/hadoop/dep/phoenix-spark-4.14.3-HBase-1.4.jar --master yarn --deploy-mode client --driver-memory 3g --executor-memory 2g --num-executors 1 --executor-cores 1  /home/hadoop/delta.py
+
+
+
+spark-submit --jars /home/hadoop/dep/phoenix-4.14.3-HBase-1.4-client.jar,/home/hadoop/dep/phoenix-spark-4.14.3-HBase-1.4.jar --deploy-mode client  --driver-memory 3g --executor-memory 2g --num-executors 1 --executor-cores 1 /home/hadoop/delta.py
+
+
+SQL , hive , python , project , spark 
+
+----------------------------------------------------
+Monday 
+
+Tuesday 

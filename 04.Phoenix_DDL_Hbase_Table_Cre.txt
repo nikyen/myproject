@@ -1,0 +1,28 @@
+--Name : Phoenix Hbase
+--Owner : SRI
+--Date cre : 08102022
+--Modified date : 
+--For more info follow us on instagram
+
+
+Go to 
+$cd /usr/lib/phoenix/bin
+/usr/lib/phoenix/bin/sqlline.py localhost
+
+#show tables
+!tables
+
+----------------------------
+CREATE TABLE COUNTRY_HB (cn_id VARCHAR(10) PRIMARY KEY,cn_name VARCHAR(45));
+CREATE TABLE CITY_HB (ct_id VARCHAR(10) PRIMARY KEY,ct_name VARCHAR(45),cn_id VARCHAR(10));
+CREATE TABLE ADDRESS_HB (add_id VARCHAR(10) PRIMARY KEY,Street VARCHAR(45),ct_id VARCHAR(10));
+CREATE TABLE PLAN_PREPAID_HB (plan_id VARCHAR(10) PRIMARY KEY,plan_desc VARCHAR(45),amount INTEGER);
+CREATE TABLE PLAN_POSTPAID_HB (plan_id VARCHAR(10) PRIMARY KEY,plan_desc VARCHAR(45),amount INTEGER);
+CREATE TABLE STAFF_HB (staff_id INTEGER PRIMARY KEY,name VARCHAR(45),mob INTEGER,email VARCHAR(45),sys_cre_date TIMESTAMP,sys_upd_date TIMESTAMP,active_flag CHAR(1),add_id VARCHAR(10),prepaid_plan_id VARCHAR(20),postpaid_plan_id VARCHAR(20));
+CREATE TABLE COMPLAINT_HB (cmp_id INTEGER PRIMARY KEY,sid INTEGER,regarding VARCHAR(45),descr VARCHAR(45),status VARCHAR(45),staff_id INTEGER,sys_cre_date TIMESTAMP,sys_upd_date TIMESTAMP);
+CREATE TABLE SUBSCRIBER_HB ( sid INTEGER PRIMARY KEY,name VARCHAR(45),mob INTEGER,email VARCHAR(45),add_id VARCHAR(10),sys_cre_date TIMESTAMP,sys_upd_date TIMESTAMP,Active_flag CHAR(1),prepaid_plan_id VARCHAR(20),postpaid_plan_id VARCHAR(20));
+
+
+commit;
+
+--------------------------------
